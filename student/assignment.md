@@ -67,6 +67,10 @@ You must run your strategy on both scenarios:
 - `scenarios/world_mix.json`
 - `scenarios/budget_pressure.json`
 
+An additional optional stress-test scenario may be used for stronger analysis:
+
+- `scenarios/regional_chokepoint.json`
+
 ## Provided Baselines
 
 The starter includes three baselines:
@@ -77,22 +81,27 @@ The starter includes three baselines:
 
 Your custom strategy must be compared against all three baselines.
 
-## Deliverables
+## Files To Submit
 
-Submit the following:
+Submit the following files and folders exactly:
 
-1. Your completed code
-2. A report in PDF
-3. The generated CSV summary files for both scenarios
+1. `strategies/student_custom_strategy.py`
+2. `report.pdf`
+3. `outputs/world_mix_comparison.csv`
+4. `outputs/budget_pressure_comparison.csv`
 
-Your report must contain:
+If you also analyze the optional scenario, you may additionally submit:
 
-1. A short description of the virtual cluster and task
-2. A clear description of your strategy
-3. Pseudocode for your strategy
-4. Tables or plots comparing your strategy with the baselines
-5. A discussion of why your strategy performs better or worse
-6. At least one failure case or limitation of your design
+- `outputs/regional_chokepoint_comparison.csv`
+
+Your `report.pdf` must contain:
+
+1. a short description of the virtual cluster and training task
+2. a clear description of your distributed training strategy
+3. pseudocode for your strategy
+4. tables or plots comparing your strategy with all baselines
+5. a discussion of why your strategy performs better or worse
+6. at least one failure case or limitation of your design
 
 ## How To Run
 
@@ -128,11 +137,22 @@ There is no single correct answer. The goal is to make a defensible system desig
 
 ## Grading Criteria
 
-Your submission will be graded on:
+Total score: 100
 
-1. correctness and completeness of the simulator-based implementation
-2. quality of the strategy design
-3. quality and clarity of the pseudocode
-4. correctness and depth of the experimental comparison
-5. quality of the analysis and discussion
+| Component | What is evaluated | Points |
+| --- | --- | ---: |
+| Strategy design | Quality of the proposed distributed training plan; cluster selection, synchronization structure, and resource usage are coherent and well motivated | 25 |
+| Pseudocode | Pseudocode is technically correct, clear, and reflects the actual proposed system behavior | 20 |
+| Solution reasoning and analysis | Quality of tradeoff reasoning, explanation of results, and discussion of limitations or failure cases | 15 |
+| Code implementation | `student_custom_strategy.py` runs correctly with the provided simulator and produces valid comparison outputs | 20 |
+| Experimental results | Required comparison CSV files are complete, baseline comparisons are correct, and reported metrics are used properly | 20 |
 
+Interpretation:
+
+- strategy design + pseudocode + reasoning = 60 points
+- code + experimental results = 40 points
+
+Strong submissions usually do two things well:
+
+1. propose a sensible strategy for geo-distributed execution
+2. explain clearly why the observed time / communication / cost tradeoffs make sense

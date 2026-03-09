@@ -10,9 +10,8 @@ The assignment focuses on system design for geo-distributed training:
 
 Main contents:
 
-- `assignment_package/student`
+- `student`
   Student-facing assignment description, scenarios, simulator starter, and baseline scripts
 
-- `assignment_package/instructor`
+- `instructor`
   Reference strategy, reference results, grading rubric, and instructor notes
-

@@ -12,16 +12,16 @@ def build_strategy(scenario: dict) -> dict:
     - choose synchronization scheme
     - choose synchronization interval
     """
-    if scenario["scenario_name"] == "world_mix":
-        placements = [
-            {"cluster_id": "us-east-a100", "num_gpus": 8},
-            {"cluster_id": "eu-west-h100", "num_gpus": 4},
-        ]
-    else:
-        placements = [
-            {"cluster_id": "us-central-h100", "num_gpus": 2},
-            {"cluster_id": "us-west-a100", "num_gpus": 4},
-        ]
+    clusters = sorted(
+        scenario["clusters"],
+        key=lambda cluster: cluster["gpu_tokens_per_sec"],
+        reverse=True,
+    )
+    top_clusters = clusters[: min(2, len(clusters))]
+    placements = [
+        {"cluster_id": cluster["id"], "num_gpus": cluster["num_gpus"]}
+        for cluster in top_clusters
+    ]
 
     return {
         "name": "student_custom_strategy",
