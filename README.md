@@ -2,6 +2,8 @@
 
 This repository contains a laptop-friendly distributed learning assignment package.
 
+For a Chinese overview of the assignment design, see `README_CN.md`.
+
 The assignment focuses on system design for geo-distributed training:
 
 - students design a distributed training strategy
