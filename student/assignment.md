@@ -17,7 +17,7 @@ You are given:
 
 Your task is to decide how to use the available resources efficiently.
 
-## What You Must Do
+## What You Should Do
 
 You must complete four pieces of work.
 
