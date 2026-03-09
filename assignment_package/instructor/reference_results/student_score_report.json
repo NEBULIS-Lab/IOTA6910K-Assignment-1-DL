@@ -1,0 +1,26 @@
+{
+  "artifact_score": 37,
+  "artifact_score_max": 40,
+  "manual_score_max": 60,
+  "scenarios": [
+    {
+      "scenario": "world_mix",
+      "score": 17,
+      "max_score": 20,
+      "status": "ok",
+      "details": [
+        "custom is much more expensive than single_region_fastest",
+        "custom is not the fastest among major baselines, but this is acceptable if tradeoffs are justified"
+      ]
+    },
+    {
+      "scenario": "budget_pressure",
+      "score": 20,
+      "max_score": 20,
+      "status": "ok",
+      "details": [
+        "custom is not the fastest among major baselines, but this is acceptable if tradeoffs are justified"
+      ]
+    }
+  ]
+}

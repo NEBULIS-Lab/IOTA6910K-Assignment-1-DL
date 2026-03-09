@@ -1,0 +1,52 @@
+{
+  "scenario_name": "budget_pressure",
+  "intra_region_bandwidth_gbps": 300.0,
+  "intra_region_latency_ms": 0.6,
+  "task": {
+    "model_name": "DenseLM-34B",
+    "gradient_size_gb": 68.0,
+    "global_batch_tokens": 1572864,
+    "target_steps": 1400
+  },
+  "clusters": [
+    {
+      "id": "us-central-h100",
+      "region": "us-central",
+      "gpu_type": "H100-80GB",
+      "num_gpus": 2,
+      "gpu_tokens_per_sec": 10800.0,
+      "hourly_cost_usd": 5.8
+    },
+    {
+      "id": "us-west-a100",
+      "region": "us-west",
+      "gpu_type": "A100-80GB",
+      "num_gpus": 4,
+      "gpu_tokens_per_sec": 6900.0,
+      "hourly_cost_usd": 3.2
+    },
+    {
+      "id": "eu-north-l40s",
+      "region": "eu-north",
+      "gpu_type": "L40S-48GB",
+      "num_gpus": 8,
+      "gpu_tokens_per_sec": 4700.0,
+      "hourly_cost_usd": 1.8
+    }
+  ],
+  "inter_region_network": {
+    "us-central": {
+      "us-west": {"bandwidth_gbps": 140.0, "latency_ms": 28.0},
+      "eu-north": {"bandwidth_gbps": 70.0, "latency_ms": 95.0}
+    },
+    "us-west": {
+      "us-central": {"bandwidth_gbps": 140.0, "latency_ms": 28.0},
+      "eu-north": {"bandwidth_gbps": 65.0, "latency_ms": 110.0}
+    },
+    "eu-north": {
+      "us-central": {"bandwidth_gbps": 70.0, "latency_ms": 95.0},
+      "us-west": {"bandwidth_gbps": 65.0, "latency_ms": 110.0}
+    }
+  }
+}
+
