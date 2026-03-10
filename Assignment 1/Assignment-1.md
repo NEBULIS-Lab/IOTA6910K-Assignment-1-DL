@@ -2,14 +2,15 @@
 
 > **Release Date:** March 11, 2026  
 > **Deadline:** March 25, 2026, 11:59 PM
+> **Repository:** [https://github.com/NEBULIS-Lab/IOTA6910K-Assignment-1-DL](https://github.com/NEBULIS-Lab/IOTA6910K-Assignment-1-DL)
 
-## Topic
+## Assignment Overview
 
-This assignment focuses on distributed learning system design under a virtual geo-distributed GPU environment. The goal is to reason about how a large training job should be placed, synchronized, and coordinated when compute resources are spread across regions with different hardware speeds, network links, and dollar costs.
+This assignment concerns distributed learning system design in a virtual geo-distributed GPU environment. The objective is to reason about how a large training job should be placed, synchronized, and coordinated when compute resources are distributed across regions with different hardware capabilities, network links, and monetary costs.
 
-You are **not** asked to train a real large model or deploy a real cluster. Instead, you will design a distributed training strategy, explain the logic behind it, and evaluate it with a laptop-friendly Ray-based simulator that models workers, regional aggregators, and a global coordinator.
+You are **not** asked to train a real large model or deploy a real cluster. Instead, you will develop a distributed training strategy, explain its rationale, and evaluate it with a laptop-friendly Ray-based simulator that models workers, regional aggregators, and a global coordinator.
 
-## Problem Setting
+## Problem Formulation
 
 You are given:
 
@@ -18,25 +19,25 @@ You are given:
 - different intra-region and inter-region bandwidth / latency
 - a large-model training task described by model size, gradient size, and target training steps
 
-Your task is to decide how to use the available resources efficiently.
+Your task is to determine how the available resources should be used efficiently.
 
-## What You Should Do
+## Required Tasks
 
-You must complete four pieces of work.
+This assignment has four required components.
 
-### 1. Design a distributed training strategy
+### 1. Design a Distributed Training Strategy
 
-Your strategy should explain which clusters you choose to use, how many GPUs you allocate in each cluster, how work is assigned across heterogeneous GPUs, whether synchronization is flat or hierarchical, and how often global synchronization happens. The important part is not using every resource, but making a coherent systems decision that balances compute, communication, and cost.
+Your strategy should explain which clusters are selected, how many GPUs are allocated in each cluster, how work is assigned across heterogeneous GPUs, whether synchronization is flat or hierarchical, and how often global synchronization takes place. The goal is not simply to use all available resources, but to make a coherent systems decision that balances computation, communication, and cost.
 
-### 2. Provide pseudocode
+### 2. Provide System-Level Pseudocode
 
-You must write system-level or algorithmic pseudocode for your strategy. The pseudocode should make clear how workers perform local computation, how gradients or parameters are synchronized, how cross-region communication is handled, and how your design differs from the provided baselines.
+You must write system-level or algorithmic pseudocode for your strategy. The pseudocode should clearly describe how workers perform local computation, how gradients or parameters are synchronized, how cross-region communication is handled, and how your design differs from the provided baselines.
 
-### 3. Implement your strategy in the Ray simulator
+### 3. Implement the Strategy in the Provided Ray Simulator
 
-You are given a Ray actor-based simulator starter. Your main implementation work should happen in [`strategies/student_custom_strategy.py`](strategies/student_custom_strategy.py). Then run it against the required scenarios and compare it with the provided baselines. The Ray runtime is only used to simulate distributed execution roles such as workers, regional aggregators, and a global coordinator. You are not required to deploy a real cluster.
+You are given a Ray actor-based simulator starter. Your main implementation work should be carried out in [`strategies/student_custom_strategy.py`](strategies/student_custom_strategy.py). You should then run your strategy on the required scenarios and compare it with the provided baselines. The Ray runtime is used only to simulate distributed execution roles such as workers, regional aggregators, and a global coordinator. You are not required to deploy a real cluster.
 
-### 4. Analyze the results
+### 4. Analyze and Interpret the Results
 
 You must compare your strategy with the baselines using the simulator outputs and explain the observed training time, communication time, communication volume, GPU-hour cost, and the tradeoff between synchronization frequency and convergence penalty.
 
@@ -53,7 +54,7 @@ An additional optional stress-test scenario may be used for stronger analysis:
 
 ## Provided Code Structure
 
-The starter code is organized so that strategy design and simulator internals are separated:
+The starter code is organized so that strategy design and simulator internals are clearly separated:
 
 | Path | Purpose |
 | --- | --- |
@@ -65,9 +66,9 @@ The starter code is organized so that strategy design and simulator internals ar
 | [`simulator/runtime_ray.py`](simulator/runtime_ray.py) | Orchestrates the local Ray-based execution flow |
 | [`strategies/student_custom_strategy.py`](strategies/student_custom_strategy.py) | Main file you are expected to modify |
 
-## Provided Baselines
+## Baseline Strategies
 
-The starter includes three baselines:
+The starter package includes three baseline strategies:
 
 1. `single_region_fastest`
 2. `all_regions_flat_dp`
@@ -75,7 +76,7 @@ The starter includes three baselines:
 
 Your custom strategy must be compared against all three baselines.
 
-## Files To Submit
+## Submission Files and Format
 
 Submit the following files and folders exactly:
 
@@ -88,16 +89,19 @@ If you also analyze the optional scenario, you may additionally submit:
 
 - `outputs/regional_chokepoint_comparison.csv`
 
-Keep the relative paths exactly as shown above in your submission package. Do not rename the required files.
+Keep the relative paths exactly as shown above in your submission package. Do not rename the required files. Your final submission must be a single `.zip` archive named `FullName_StudentID.zip`, for example `SanZhang_12345678.zip`.
 
-## Allowed Changes
+## Permitted Code Modifications
 
 At minimum, you are expected to modify [`strategies/student_custom_strategy.py`](strategies/student_custom_strategy.py). You may add helper functions in that file. If you modify any other provided file, document exactly what you changed and why in `report.pdf`. Do not modify the scenario JSON files or manually edit the generated CSV result files.
 
 > **Note**
 > The submitted comparison CSV files must be generated by the provided scripts. Hand-edited result files will not be treated as valid experimental outputs.
 
-## AI Assistance Policy
+> **Note**
+> Late submissions received within 24 hours after the deadline will lose 25% of the total score. After that, each additional 24-hour period will result in another 15% deduction from the total score.
+
+## Policy on AI Assistance
 
 You may use ChatGPT or other AI tools to help with code implementation, pseudocode drafting, debugging, or brainstorming. However, the core design decisions, tradeoff analysis, and final explanation should reflect your own understanding. In `report.pdf`, include a short disclosure describing which AI tools you used and what they were used for.
 
@@ -117,7 +121,7 @@ At minimum, your pseudocode should describe:
 - region-level or global synchronization steps
 - the rule for when global synchronization happens
 
-## How To Run
+## Setup and Execution
 
 Run from the `Assignment 1/` folder.
 
@@ -163,7 +167,7 @@ These commands write CSV summaries into `outputs/`.
 
 They also write JSON trace files into `outputs/` so you can inspect the simulated worker / region / global synchronization events. Those trace files are optional and do not need to be submitted.
 
-## What Counts As A Good Strategy
+## Characteristics of Strong Solutions
 
 A strong strategy usually balances several factors rather than optimizing only one:
 
@@ -173,7 +177,7 @@ A strong strategy usually balances several factors rather than optimizing only o
 - keep convergence penalty under control
 - avoid exploding cost for small time gains
 
-There is no single correct answer. The goal is to make a defensible system design and support it with simulation results.
+There is no single correct answer. The goal is to present a defensible systems design supported by simulation results.
 
 ## Grading Criteria
 
