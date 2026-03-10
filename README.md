@@ -1,8 +1,6 @@
 # IOTA6910K Assignment 1 DL
 
-This repository contains a laptop-friendly distributed learning assignment package.
-
-For a Chinese overview of the assignment design, see `README_CN.md`.
+This repository contains the public student-facing materials for `IOTA6910K Assignment 1`.
 
 The assignment focuses on system design for geo-distributed training:
 
@@ -12,8 +10,5 @@ The assignment focuses on system design for geo-distributed training:
 
 Main contents:
 
-- `student`
-  Student-facing assignment description, scenarios, Ray simulator starter, and baseline scripts
-
-- `instructor`
-  Reference strategy, reference results, grading rubric, and instructor notes
+- `Assignment 1`
+  Assignment description, scenarios, Ray simulator starter, and baseline scripts

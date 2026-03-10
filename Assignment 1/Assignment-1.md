@@ -105,7 +105,7 @@ Your `report.pdf` must contain:
 
 ## How To Run
 
-Run from the `student/` folder.
+Run from the `Assignment 1/` folder.
 
 Before you run the simulator, make sure you have:
 

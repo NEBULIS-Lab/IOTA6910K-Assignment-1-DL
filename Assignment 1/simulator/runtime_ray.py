@@ -20,7 +20,7 @@ def _import_ray():
     except ImportError as exc:
         raise RuntimeError(
             "Ray is required for this assignment. Install it with "
-            "`python3 -m pip install -r requirements.txt` from the `student/` folder."
+            "`python3 -m pip install -r requirements.txt` from the `Assignment 1/` folder."
         ) from exc
     return ray
 

@@ -1,6 +1,6 @@
 # IOTA6910K Assignment 1 DL（中文说明）
 
-这是一个面向 distributed learning 的课程作业包，但重点不是真实训练大模型，而是让学生在笔记本上完成一次“分布式训练系统设计”练习。
+这是一个面向 distributed learning 的公开课程作业仓库，重点不是真实训练大模型，而是让学生在笔记本上完成一次“分布式训练系统设计”练习。
 
 作业设定了一个虚拟的跨地域 GPU 集群环境：不同区域有不同类型的 GPU，不同区域之间的带宽、延迟和成本也不一样。学生需要基于这些条件，设计一个合理的 distributed training strategy，并说明为什么这样设计。
 
@@ -8,6 +8,6 @@
 
 这样设计的原因很直接：老师希望作业能在个人 laptop 上完成，不依赖真实多机多卡环境，同时又保留 distributed learning 里最关键的系统问题，例如异构硬件选择、跨区域通信开销、同步结构设计和性能/成本平衡。这里的 Ray 主要用来表达 worker、regional aggregator 和 global coordinator 这些系统角色，而不是做真实大模型训练。
 
-`student/` 是发给学生的内容，里面有正式作业说明、场景配置、Ray starter simulator 和需要修改的策略入口。`instructor/` 是老师保留的内容，里面有参考方案、参考结果、评分标准和说明笔记。
+仓库里的主要内容在 `Assignment 1/`，里面有正式作业说明、场景配置、Ray starter simulator 和需要修改的策略入口。
 
 整体难度是中等偏上，但难点主要在系统 reasoning，而不是编码量。高质量提交通常不是“把脚本跑通”就结束，而是能把方案、伪代码、结果和分析连成一条清楚的逻辑链。
