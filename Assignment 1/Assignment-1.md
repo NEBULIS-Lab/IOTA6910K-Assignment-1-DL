@@ -2,7 +2,8 @@
 
 > **Release Date:** March 11, 2026  
 > **Deadline:** March 25, 2026, 11:59 PM
-> **Repository:** [https://github.com/NEBULIS-Lab/IOTA6910K-Assignment-1-DL](https://github.com/NEBULIS-Lab/IOTA6910K-Assignment-1-DL)
+
+**Repository:** [https://github.com/NEBULIS-Lab/IOTA6910K-Assignment-1-DL](https://github.com/NEBULIS-Lab/IOTA6910K-Assignment-1-DL)
 
 ## Assignment Overview
 
