@@ -11,6 +11,9 @@ def build_strategy(scenario: dict) -> dict:
     - choose load balancing policy
     - choose synchronization scheme
     - choose synchronization interval
+
+    The Ray runtime will use this strategy to create a simulated execution
+    plan across cluster workers, regional aggregators, and a global coordinator.
     """
     clusters = sorted(
         scenario["clusters"],

@@ -2,6 +2,8 @@
 
 This assignment is designed to evaluate whether students can reason about distributed training as a systems problem rather than as a pure model-training exercise.
 
+The Ray requirement is meant to expose students to a realistic control-plane abstraction for distributed execution without requiring a real multi-node deployment.
+
 Expected learning outcomes:
 
 - understand why geo-distributed training is limited by communication, not just compute
@@ -13,4 +15,3 @@ Expected learning outcomes:
 Expected insight:
 
 Students should recognize that naive use of all available clusters is often a poor design because long-haul communication can dominate step time.
-

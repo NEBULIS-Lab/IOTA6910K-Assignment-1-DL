@@ -4,7 +4,7 @@
 
 This assignment focuses on distributed learning system design under a virtual geo-distributed GPU environment.
 
-You are **not** asked to train a real large model. Instead, you will design a distributed training strategy, express the strategy clearly, and evaluate it with a lightweight simulator.
+You are **not** asked to train a real large model. Instead, you will design a distributed training strategy, express the strategy clearly, and evaluate it with a Ray-based lightweight simulator that runs on a laptop.
 
 ## Problem Setting
 
@@ -42,13 +42,13 @@ The pseudocode should make clear:
 - how cross-region communication is handled
 - where your design differs from the provided baselines
 
-### 3. Implement your strategy in the simulator
+### 3. Implement your strategy in the Ray simulator
 
-You are given a simulator starter. You must implement a custom strategy in:
+You are given a Ray actor-based simulator starter. You must implement a custom strategy in:
 
 - `strategies/student_custom_strategy.py`
 
-Then run it against the required scenarios and compare it with the provided baselines.
+Then run it against the required scenarios and compare it with the provided baselines. The Ray runtime is only used to simulate distributed execution roles such as workers, regional aggregators, and a global coordinator. You are not required to deploy a real cluster.
 
 ### 4. Analyze the results
 
@@ -107,6 +107,27 @@ Your `report.pdf` must contain:
 
 Run from the `student/` folder.
 
+Before you run the simulator, make sure you have:
+
+- Python 3.10 or newer
+- `pip`
+- the package listed in `requirements.txt` (currently `ray`)
+
+Recommended setup:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+```
+
+Then install the required dependency:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+No GPU is required. The Ray runtime is used only for local simulation on your laptop.
+
 Baseline runs:
 
 ```bash
@@ -122,6 +143,8 @@ python3 scripts/run_custom.py scenarios/budget_pressure.json
 ```
 
 These commands write CSV summaries into `outputs/`.
+
+They also write JSON trace files into `outputs/` so you can inspect the simulated worker / region / global synchronization events. Those trace files are optional and do not need to be submitted.
 
 ## What Counts As A Good Strategy
 
@@ -144,7 +167,7 @@ Total score: 100
 | Strategy design | Quality of the proposed distributed training plan; cluster selection, synchronization structure, and resource usage are coherent and well motivated | 25 |
 | Pseudocode | Pseudocode is technically correct, clear, and reflects the actual proposed system behavior | 20 |
 | Solution reasoning and analysis | Quality of tradeoff reasoning, explanation of results, and discussion of limitations or failure cases | 15 |
-| Code implementation | `student_custom_strategy.py` runs correctly with the provided simulator and produces valid comparison outputs | 20 |
+| Code implementation | `student_custom_strategy.py` runs correctly with the provided Ray simulator and produces valid comparison outputs | 20 |
 | Experimental results | Required comparison CSV files are complete, baseline comparisons are correct, and reported metrics are used properly | 20 |
 
 Interpretation:
