@@ -1,10 +1,13 @@
 # IOTA6910K Assignment 1
 
+> **Release Date:** March 11, 2026  
+> **Deadline:** March 25, 2026, 11:59 PM
+
 ## Topic
 
-This assignment focuses on distributed learning system design under a virtual geo-distributed GPU environment.
+This assignment focuses on distributed learning system design under a virtual geo-distributed GPU environment. The goal is to reason about how a large training job should be placed, synchronized, and coordinated when compute resources are spread across regions with different hardware speeds, network links, and dollar costs.
 
-You are **not** asked to train a real large model. Instead, you will design a distributed training strategy, express the strategy clearly, and evaluate it with a Ray-based lightweight simulator that runs on a laptop.
+You are **not** asked to train a real large model or deploy a real cluster. Instead, you will design a distributed training strategy, explain the logic behind it, and evaluate it with a laptop-friendly Ray-based simulator that models workers, regional aggregators, and a global coordinator.
 
 ## Problem Setting
 
@@ -23,42 +26,19 @@ You must complete four pieces of work.
 
 ### 1. Design a distributed training strategy
 
-Your strategy should specify, at minimum:
-
-- which clusters to use
-- how many GPUs to use in each cluster
-- how work is assigned across heterogeneous GPUs
-- whether synchronization is flat or hierarchical
-- how often global synchronization happens
+Your strategy should explain which clusters you choose to use, how many GPUs you allocate in each cluster, how work is assigned across heterogeneous GPUs, whether synchronization is flat or hierarchical, and how often global synchronization happens. The important part is not using every resource, but making a coherent systems decision that balances compute, communication, and cost.
 
 ### 2. Provide pseudocode
 
-You must write system-level or algorithmic pseudocode for your strategy.
-
-The pseudocode should make clear:
-
-- how workers compute local updates
-- how gradients or parameters are synchronized
-- how cross-region communication is handled
-- where your design differs from the provided baselines
+You must write system-level or algorithmic pseudocode for your strategy. The pseudocode should make clear how workers perform local computation, how gradients or parameters are synchronized, how cross-region communication is handled, and how your design differs from the provided baselines.
 
 ### 3. Implement your strategy in the Ray simulator
 
-You are given a Ray actor-based simulator starter. You must implement a custom strategy in:
-
-- `strategies/student_custom_strategy.py`
-
-Then run it against the required scenarios and compare it with the provided baselines. The Ray runtime is only used to simulate distributed execution roles such as workers, regional aggregators, and a global coordinator. You are not required to deploy a real cluster.
+You are given a Ray actor-based simulator starter. Your main implementation work should happen in [`strategies/student_custom_strategy.py`](strategies/student_custom_strategy.py). Then run it against the required scenarios and compare it with the provided baselines. The Ray runtime is only used to simulate distributed execution roles such as workers, regional aggregators, and a global coordinator. You are not required to deploy a real cluster.
 
 ### 4. Analyze the results
 
-You must compare your strategy with the baselines using the simulator outputs and explain:
-
-- training time
-- communication time
-- communication volume
-- GPU-hour cost
-- tradeoffs between faster synchronization and convergence penalty
+You must compare your strategy with the baselines using the simulator outputs and explain the observed training time, communication time, communication volume, GPU-hour cost, and the tradeoff between synchronization frequency and convergence penalty.
 
 ## Required Scenarios
 
@@ -70,6 +50,20 @@ You must run your strategy on both scenarios:
 An additional optional stress-test scenario may be used for stronger analysis:
 
 - `scenarios/regional_chokepoint.json`
+
+## Provided Code Structure
+
+The starter code is organized so that strategy design and simulator internals are separated:
+
+| Path | Purpose |
+| --- | --- |
+| [`scenarios/`](scenarios) | Virtual cluster and task configurations |
+| [`scripts/run_baselines.py`](scripts/run_baselines.py) | Runs the provided baseline strategies |
+| [`scripts/run_custom.py`](scripts/run_custom.py) | Runs your custom strategy and compares it with the baselines |
+| [`simulator/core.py`](simulator/core.py) | Time, communication, and cost estimation logic |
+| [`simulator/actors.py`](simulator/actors.py) | Ray actors representing cluster workers, regional aggregators, and the global coordinator |
+| [`simulator/runtime_ray.py`](simulator/runtime_ray.py) | Orchestrates the local Ray-based execution flow |
+| [`strategies/student_custom_strategy.py`](strategies/student_custom_strategy.py) | Main file you are expected to modify |
 
 ## Provided Baselines
 
@@ -98,13 +92,14 @@ Keep the relative paths exactly as shown above in your submission package. Do no
 
 ## Allowed Changes
 
-Your minimum required code change is:
+At minimum, you are expected to modify [`strategies/student_custom_strategy.py`](strategies/student_custom_strategy.py). You may add helper functions in that file. If you modify any other provided file, document exactly what you changed and why in `report.pdf`. Do not modify the scenario JSON files or manually edit the generated CSV result files.
 
-- `strategies/student_custom_strategy.py`
+> **Note**
+> The submitted comparison CSV files must be generated by the provided scripts. Hand-edited result files will not be treated as valid experimental outputs.
 
-You may add helper functions in that file. If you modify any other provided file, clearly document the change in `report.pdf`.
+## AI Assistance Policy
 
-Do not modify the scenario JSON files or manually edit the generated CSV result files.
+You may use ChatGPT or other AI tools to help with code implementation, pseudocode drafting, debugging, or brainstorming. However, the core design decisions, tradeoff analysis, and final explanation should reflect your own understanding. In `report.pdf`, include a short disclosure describing which AI tools you used and what they were used for.
 
 Your `report.pdf` must contain:
 
@@ -147,6 +142,9 @@ python3 -m pip install -r requirements.txt
 
 No GPU is required. The Ray runtime is used only for local simulation on your laptop.
 
+> **Note**
+> You do not need a real multi-node cluster. The provided Ray runtime starts locally on your laptop and is only used to represent distributed execution roles in the simulator.
+
 Baseline runs:
 
 ```bash
@@ -164,8 +162,6 @@ python3 scripts/run_custom.py scenarios/budget_pressure.json
 These commands write CSV summaries into `outputs/`.
 
 They also write JSON trace files into `outputs/` so you can inspect the simulated worker / region / global synchronization events. Those trace files are optional and do not need to be submitted.
-
-The submitted comparison CSV files must be generated by these scripts. Do not hand-edit them.
 
 ## What Counts As A Good Strategy
 
@@ -203,5 +199,13 @@ Strong submissions usually do two things well:
 
 ## References
 
-1. Ray Team. *Ray Documentation*. Official documentation for Ray Core concepts, actors, tasks, and local runtime usage. Available at: `https://docs.ray.io/en/latest/index.html`
-2. Ray Team. *ray* on PyPI. Official package and installation reference for the Ray Python distribution. Available at: `https://pypi.org/project/ray/`
+These references are optional background reading. They are not required to complete the assignment, but they are useful if you want more context on Ray and distributed training systems.
+
+1. Ray Team. [Ray Documentation](https://docs.ray.io/en/latest/index.html). Official documentation for Ray Core and local runtime usage.
+2. Ray Team. [Ray Core Actors](https://docs.ray.io/en/latest/ray-core/actors.html). Official guide to the actor abstraction used in the provided simulator.
+3. Ray Team. [Ray Core Tasks](https://docs.ray.io/en/latest/ray-core/tasks.html). Official guide to remote tasks and asynchronous execution in Ray.
+4. Ray Team. [ray on PyPI](https://pypi.org/project/ray/). Official package and installation reference for the Ray Python distribution.
+5. Dean, J., Corrado, G., Monga, R., Chen, K., Devin, M., Le, Q. V., Mao, M., Ranzato, M., Senior, A., Tucker, P., Yang, K., and Ng, A. Y. [Large Scale Distributed Deep Networks](https://papers.nips.cc/paper_files/paper/2012/hash/6aca97005c68f1206823815f66102863-Abstract.html). *Advances in Neural Information Processing Systems (NeurIPS 2012)*.
+6. Li, M., Andersen, D. G., Park, J. W., Smola, A. J., Ahmed, A., Josifovski, V., Long, J., Shekita, E. J., and Su, B.-Y. [Scaling Distributed Machine Learning with the Parameter Server](https://www.usenix.org/conference/osdi14/technical-sessions/presentation/li_mu). *11th USENIX Symposium on Operating Systems Design and Implementation (OSDI 2014)*.
+7. Huang, Y., Cheng, Y., Bapna, A., Firat, O., Chen, D., Chen, M., Lee, H., Ngiam, J., Le, Q. V., Wu, Y., and Chen, Z. [GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism](https://papers.nips.cc/paper_files/paper/2019/hash/093f65e080a295f8076b1c5722a46aa2-Abstract.html). *Advances in Neural Information Processing Systems (NeurIPS 2019)*.
+8. Zheng, L., Li, Z., Zhang, H., Zhuang, Y., Chen, Z., Huang, Y., Wang, Y., Xu, Y., Zhuo, D., Xing, E. P., Gonzalez, J. E., and Stoica, I. [Alpa: Automating Inter- and Intra-Operator Parallelism for Distributed Deep Learning](https://www.usenix.org/conference/osdi22/presentation/zheng-lianmin). *16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 2022)*.
