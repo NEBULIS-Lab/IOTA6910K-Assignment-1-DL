@@ -89,7 +89,9 @@ If you also analyze the optional scenario, you may additionally submit:
 
 - `outputs/regional_chokepoint_comparison.csv`
 
-Keep the relative paths exactly as shown above in your submission package. Do not rename the required files. Your final submission must be a single `.zip` archive named `FullName_StudentID.zip`, for example `SanZhang_12345678.zip`.
+Keep the relative paths exactly as shown above in your submission package. Do not rename the required files. Your final submission must be a single `.zip` archive named `FullName_StudentID.zip`, for example `SanZhang_12345678.zip`. The submission window is available in Canvas under `Assignments`, where you should upload the final `.zip` package.
+
+![Canvas Assignment Submission Window](Screenshot_A1.png)
 
 ## Permitted Code Modifications
 
